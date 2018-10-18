@@ -25,12 +25,12 @@ export default (props) => {
                 <div className="col-12 col-md-5 m-1">  
                     {props.dish.comments.length >0  && <h4>Comments</h4>}                  
                     {props.dish.comments.map((comment, index) => (
-                        <ListGroup>
-                            <ListGroupItem >
+                        <ul className="list-unstyled">
+                            <li>
                             <p>{comment.comment} </p>
                             <p>{comment.author}, {comment.date} </p>
-                            </ListGroupItem>
-                        </ListGroup>
+                            </li>
+                        </ul>
                     ))}
                 </div>
             </Row>
