@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, Row, ListGroup, ListGroupItem
+    CardTitle, Row
 } from 'reactstrap';
 
 export default (props) => {
