@@ -11,7 +11,7 @@ export default (props) => {
         );
     }
     return (
-        <div>
+        <div className="container">
             <Row>
                 <div className="col-12 col-md-5 m-1">
                     <Card>
@@ -28,7 +28,7 @@ export default (props) => {
                         <ul className="list-unstyled">
                             <li>
                             <p>{comment.comment} </p>
-                            <p>{comment.author}, {comment.date} </p>
+                            <p>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </p>
                             </li>
                         </ul>
                     ))}
