@@ -3,6 +3,10 @@ import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './Menu';
 import DishDetail from './DishDetail';
 import { DISHES } from '../shared/dishes';
+import Header from './Header';
+import Footer from './Footer';
+import Home from './Home';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Main extends Component {
     constructor(props) {
@@ -18,15 +22,19 @@ class Main extends Component {
     }
 
     render() {
+        const HomePage = ()=>(
+            <Home/>
+        );
+
         return (
-            <div >
-                <Navbar dark color="primary">
-                    <div className="container">
-                        <NavbarBrand href='/'>Giftim</NavbarBrand>
-                    </div>
-                </Navbar>
-                <Menu onClick={(dishId)=> this.onDishSelect(dishId)} dishes={this.state.dishes} />
-                <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+            <div>
+                <Header />
+                <Switch>
+                    <Route path='/home' component={HomePage} />
+                    <Route exact path='/menu' component={() => <div><Menu dishes={this.state.dishes} onClick={(dishId)=> this.onDishSelect(dishId)}   /> <DishDetail/> </div>} />
+                    <Redirect to="/home" />
+                </Switch>
+                <Footer />
             </div>
         );
     }
