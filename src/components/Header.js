@@ -40,7 +40,7 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this);
+
         return (
             <div>
                 <Navbar dark expand="md">
