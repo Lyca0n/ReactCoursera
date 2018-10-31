@@ -21,7 +21,7 @@ function RenderDish({ dish }) {
 }
 
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
     return (
         <div className="col-12 col-md-5 m-1">
             {comments.length > 0 && <h4>Comments</h4>}
@@ -33,7 +33,7 @@ function RenderComments({ comments }) {
                     </li>
                 ))}
             </ul>
-            <CommentForm />            
+            <CommentForm dishId={dishId} addComment={addComment} />
         </div >
     );
 }
@@ -61,7 +61,11 @@ export default (props) => {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1 ">
-                    <RenderComments comments={props.comments} />           
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id}
+                    />
+
                 </div>
             </div>
         </div>
@@ -76,9 +80,9 @@ class CommentForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {            
+        this.state = {
             isModalOpen: false
-        };        
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -91,13 +95,12 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
 
     render() {
-        return ( 
+        return (
             <div>
                 <Button outline onClick={this.toggleModal}><span className="fa fa-edit fa-lg"></span> Submit Comment</Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
@@ -105,17 +108,17 @@ class CommentForm extends Component {
                     <ModalBody>
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="rating" md={12}> Rating </Label>                         
-                                    <Col md={{ size: 12, offset: 0 }}>
-                                        <Control.select model=".rating" name="rating"
-                                            className="form-control">                                    
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </Control.select>
-                                    </Col>                           
+                                <Label htmlFor="rating" md={12}> Rating </Label>
+                                <Col md={{ size: 12, offset: 0 }}>
+                                    <Control.select model=".rating" name="rating"
+                                        className="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </Control.select>
+                                </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="author" md={12}>Your Name</Label>
