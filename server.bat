@@ -1,1 +1,1 @@
-json-server --watch db.json -p 3001 -d 2000
+json-server --static E:\github\ReactCoursera\json-server\images --watch E:\github\ReactCoursera\json-server\db.json -p 3001 -d 2000
